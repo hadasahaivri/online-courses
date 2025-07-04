@@ -90,20 +90,21 @@ export class AuthService {
     return 0;
   }
   private handleError(error: HttpErrorResponse): Observable<any> {
-    let errorMessage = 'An unknown error occurred!';
+    let errorMessage = 'שגיאה לא ידועה התרחשה!';
     if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
+      errorMessage = `שגיאה: ${error.error.message}`;
     } else {
       if (error.status === 400 && error.error && error.error.message) {
         errorMessage = error.error.message;
       } else if (error.status === 401) {
-        errorMessage = 'Unauthorized.';
-      } else if (error.status === 404 && error.error && error.error.message) {
-        errorMessage = error.error.message;
+        errorMessage = 'פרטי ההתחברות שגויים.';
+      } else if (error.status === 404) {
+        // User not found case
+        errorMessage = 'המשתמש לא קיים במערכת.';
       } else if (error.status === 500 && error.error && error.error.message) {
         errorMessage = error.error.message;
       } else {
-        errorMessage = `Server returned code ${error.status}, body was: ${error.error}`;
+        errorMessage = `שגיאה בשרת: ${error.status}`;
       }
     }
     console.error(errorMessage);
