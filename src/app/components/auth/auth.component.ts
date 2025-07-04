@@ -111,7 +111,8 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['/courses']); // דוגמה לניווט לאחר התחברות
         },
         error: (error: any) => {
-          this.errorMessageLogin = error.error.message || 'שגיאה בהתחברות.';
+          console.error('Login error:', error);
+          this.errorMessageLogin = error.message || 'שגיאה בהתחברות.';
         }
       });
     } else {
